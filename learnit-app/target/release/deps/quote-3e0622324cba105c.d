@@ -1,0 +1,13 @@
+/home/tt/Documents/LearnIt/learnit-app/target/release/deps/quote-3e0622324cba105c.rmeta: /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/lib.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/ext.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/format.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/ident_fragment.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/to_tokens.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/runtime.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/spanned.rs
+
+/home/tt/Documents/LearnIt/learnit-app/target/release/deps/libquote-3e0622324cba105c.rlib: /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/lib.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/ext.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/format.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/ident_fragment.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/to_tokens.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/runtime.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/spanned.rs
+
+/home/tt/Documents/LearnIt/learnit-app/target/release/deps/quote-3e0622324cba105c.d: /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/lib.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/ext.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/format.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/ident_fragment.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/to_tokens.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/runtime.rs /home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/spanned.rs
+
+/home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/lib.rs:
+/home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/ext.rs:
+/home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/format.rs:
+/home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/ident_fragment.rs:
+/home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/to_tokens.rs:
+/home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/runtime.rs:
+/home/tt/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.19/src/spanned.rs:
