@@ -8,7 +8,7 @@ int main() {
     server.bind("0.0.0.0", 5000);
 
     server.route("/*", [](pw::Connection& conn, const pw::HTTPRequest& req) {
-        // std::cout << req.build() << std::endl;
+        std:: cout << "Got request:\n" << req.build_str() << std::endl;
 
         std::ifstream file("./" + req.target);
         if (!file.is_open()) {
