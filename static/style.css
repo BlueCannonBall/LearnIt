@@ -34,8 +34,7 @@ h1 {
 
 .jumbotron {
     text-align: center;
-    /*height: 100vh;*/
-    padding-top: 10%;
+    padding-top: 6.5%;
     padding-bottom: 10%;
     padding-left: 10%;
     padding-right: 10%;
@@ -44,7 +43,7 @@ h1 {
 .btn {
     border-color: #eeeeee;
     border-radius: 50px;
-    border-width: 1.5px;
+    border-width: 1px;
     border-style: solid;
     padding: 12.5px;
     margin: 5px;
@@ -63,7 +62,7 @@ h1 {
 }
 
 .btn:active {
-    box-shadow: 0px 0px 5px 1px #ffffffff;
+    box-shadow: 0px 0px 5px 5px rgba(1, 1, 1, 0.5);
 }
 
 .navbar {
@@ -120,6 +119,7 @@ h1 {
 }
 
 .card p {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-family: 'Fira Sans';
     color: white;
+    font-size: 18px;
 }
