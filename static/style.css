@@ -1,209 +1,125 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
-pre {
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(67, 68, 68, 1) 0%, rgba(96, 96, 96, 1) 100%);
-    border-radius: 10px;
-    color: white;
-    page-break-inside: avoid;
-    font-family: monospace;
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 5px;
-    max-width: 100%;
-    overflow: auto;
-    padding: 1em 1.5em;
-    display: block;
-    word-wrap: break-word;
-}
-
 body {
-    margin: 0;
-    padding-bottom: 10px;
-    color: transparent;
+    background-color: #000000;
 }
 
-html {
-    height: 100%;
-    background: #232323;
+.text-green {
+    background: rgb(15,241,41);
+    background: linear-gradient(143deg, rgba(15,241,41,1) 4%, rgba(63,200,232,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-orange {
+    background: rgb(241,144,15);
+    background: linear-gradient(143deg, rgba(241,144,15,1) 4%, rgba(232,210,63,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-blue {
+    background: rgb(15,134,241);
+    background: linear-gradient(143deg, rgba(15,134,241,1) 4%, rgba(219,63,232,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h1 {
+    font-family: "Fira Sans";
+    background: rgb(15,134,241);
+    background: linear-gradient(143deg, rgba(15,134,241,1) 4%, rgba(219,63,232,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 12vmin;
 }
 
 .jumbotron {
-    padding: 10%;
-    z-index: 2;
-    /* fills out the jumbotron */
-    background: linear-gradient(90deg, rgba(78, 160, 245, 1) 0%, rgba(140, 33, 210, 1) 100%);
-    margin-bottom: 50px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    /*height: 100vh;*/
+    padding-top: 10%;
+    padding-bottom: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
-h1,
-h2 {
+.btn {
+    border-color: #eeeeee;
+    border-radius: 50px;
+    border-width: 1.5px;
+    border-style: solid;
+    padding: 12.5px;
+    margin: 5px;
     color: white;
-    font-weight: bolder;
-    font-family: "Fira Sans";
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    transition: 0.3s;
+    text-align: center;
+    appearance: button;
+    -webkit-appearence: button;
+    -moz-appearence: button;
 }
 
-.link {
-    box-shadow: inset 0 0 0 0 #ffd900;
-    color: #ffd900;
-    margin: 0 -.25rem;
-    padding: 0 .25rem;
-    transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
-}
-
-.link:hover {
-    box-shadow: inset 100px 0 0 0 #ffd900;
+.btn:hover {
+    background: #eeeeee;
     color: black;
 }
 
-p,
-li {
-    font-family: sans-serif;
-    color: #ffffff;
-    font-size: 18px;
+.btn:active {
+    box-shadow: 0px 0px 5px 1px #ffffffff;
 }
 
-.container {
-    margin: auto;
-    width: 80%;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-bottom: 25px;
-    position: relative;
-    z-index: 1;
-    padding: 30px;
-    transition: transform 0.25s;
+.navbar {
+    z-index: 2;
+    background-color: #33333366;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    left: 0;
+    width: 100%; /* Full width */
 }
 
-.container:hover {
-    transform: scale(1.01);
+.navbar a {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    float: right;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    font-size: 17px;
 }
 
-.blue {
-    position: relative;
-    background: linear-gradient(90deg, rgba(25, 107, 255, 1) 0%, rgba(82, 58, 217, 1) 100%);
-    z-index: 1;
+.navbar-home {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    float: left !important;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    font-size: 17px;
 }
 
-.green {
-    position: relative;
-    background: linear-gradient(90deg, rgba(19, 217, 0, 1) 0%, rgba(125, 217, 0, 1) 100%);
-    z-index: 1;
+.navbar a:hover {
+    background-color: #ffffff22;
+    color: white;
 }
 
-.red {
-    position: relative;
-    background: linear-gradient(90deg, rgba(255, 94, 25, 1) 0%, rgba(255, 61, 35, 1) 100%, rgba(217, 119, 58, 1) 100%);
-    z-index: 1;
+.card {
+    margin-top: 15vmin;
+    margin-bottom: 15vmin;
+    padding-left: 10%;
+    padding-right: 10%;
+    transition: 0.3s;
 }
 
-.purple {
-    position: relative;
-    z-index: 1;
-    background: linear-gradient(90deg, rgba(151, 0, 153, 1) 0%, rgba(96, 0, 163, 1) 100%);
-}
-
-.bubble {
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.pContainer {
-    margin: auto;
-    width: 80%;
+.card h2 {
+    font-family: "Fira Sans";
+    font-size: 8vmin;
     margin-bottom: 20px;
 }
 
-button {
-    position: relative;
-    z-index: 1;
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(67, 68, 68, 1) 0%, rgba(96, 96, 96, 1) 100%);
-    border: none;
-    border-radius: 10px;
+.card p {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    transition: transform 0.5s;
-}
-
-button:hover {
-    transform: scale(1.01);
-}
-
-button::before {
-    position: absolute;
-    content: "";
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    z-index: -1;
-    transition: opacity 0.5s linear;
-    opacity: 0;
-}
-
-button:hover::before {
-    opacity: 1;
-}
-
-
-/******************** SCROLL BAR ***************************/
-
-
-/* width */
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-
-/* Track */
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-
-/* Handle */
-
-::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-
-/* Handle on hover */
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-.topbar {
-    list-style-type: none;
-    margin: 0px;
-    padding: 0;
-    overflow: hidden;
-    background-color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 2;
-}
-
-.listitem {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    float: left;
-}
-
-li a:hover {
-    background-color: rgb(174, 174, 174);
 }
