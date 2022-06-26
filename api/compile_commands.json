@@ -1,0 +1,36 @@
+[
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-Wall",
+            "-Wno-unknown-pragmas",
+            "-std=gnu++17",
+            "-Ofast",
+            "-pthread",
+            "-Ijwt-include",
+            "-o",
+            "server",
+            "main.cpp"
+        ],
+        "directory": "/home/optimal/Desktop/mm_files/cpp/LearnIt/api",
+        "file": "main.cpp"
+    },
+    {
+        "arguments": [
+            "g++",
+            "-c",
+            "-Wall",
+            "-Wno-unknown-pragmas",
+            "-std=gnu++17",
+            "-Ofast",
+            "-pthread",
+            "-Ijwt-include",
+            "-o",
+            "server",
+            "persistence-odb.cxx"
+        ],
+        "directory": "/home/optimal/Desktop/mm_files/cpp/LearnIt/api",
+        "file": "persistence-odb.cxx"
+    }
+]

@@ -1,2 +1,5 @@
-/target
-/dist
+*/target/
+*/dist/
+*/.cache/
+*-odb.*
+api/server
