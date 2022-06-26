@@ -7,7 +7,7 @@ $(TARGET): main.cpp persistence-odb.cxx persistence-odb.hxx
 	$(CXX) $< persistence-odb.cxx $(CXXFLAGS) $(LIBS) -o $@
 
 persistence-odb.cxx: persistence.hpp
-	odb -d mysql --generate-query --generate-schema --generate-session --std c++11 $<
+	odb -d mysql --generate-query --generate-schema --generate-session --default-pointer std::shared_ptr --std c++11 $<
 
 .PHONY: clean
 

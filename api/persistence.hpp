@@ -36,11 +36,11 @@ public:
 #pragma db id auto
     unsigned long long id;
 #pragma db not_null
-    std::shared_ptr<User> owner;
+    odb::lazy_shared_ptr<User> owner;
     std::string name;
     time_t creation_date;
 #pragma db value_not_null
-    std::vector<odb::lazy_shared_ptr<Term>> terms;
+    std::vector<std::shared_ptr<Term>> terms;
 
     Deck() {};
 };

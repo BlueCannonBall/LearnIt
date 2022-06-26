@@ -2,6 +2,7 @@
 #include "persistence-odb.hxx"
 #include "persistence.hpp"
 #include <iomanip>
+#include <ios>
 #include <nlohmann/json.hpp>
 #include <odb/database.hxx>
 #include <odb/mysql/database.hxx>
@@ -17,10 +18,10 @@
 
 #define ISSUER "LearnIt!"
 #define SECRET "!bcbmagic12232004"
-#define VERIFY(token)                                                                                \
+#define VERIFY(token, username)                                                                      \
     do {                                                                                             \
         try {                                                                                        \
-            verify_token(token);                                                                     \
+            username = verify_token(token);                                                          \
         } catch (const jwt::token_verification_exception& e) {                                       \
             return generate_error_resp("401", std::string("Token verfication failed: ") + e.what()); \
         } catch (const jwt::error::claim_not_present_exception& e) {                                 \
@@ -33,15 +34,19 @@
 using namespace odb::core;
 using json = nlohmann::json;
 
+bool is_number(const std::string& s) {
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+}
+
 std::string sha256(const std::string& str) {
     unsigned char hash[SHA256_DIGEST_LENGTH];
-    SHA256_CTX sha256;
-    SHA256_Init(&sha256);
-    SHA256_Update(&sha256, str.c_str(), str.size());
-    SHA256_Final(hash, &sha256);
+    SHA256((const unsigned char*) str.data(), str.size(), hash);
     std::stringstream ss;
+    ss << std::hex << std::setw(2) << std::setfill('0');
     for (unsigned char i = 0; i < SHA256_DIGEST_LENGTH; i++) {
-        ss << std::hex << std::setw(2) << std::setfill('0') << (int) hash[i];
+        ss << (unsigned int) hash[i];
     }
     return ss.str();
 }
@@ -73,7 +78,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    server.route("/v1/signup", [&db](pw::Connection& conn, const pw::HTTPRequest& req) {
+    server.route("/v1/signup", [&db](pw::Connection& conn, const pw::HTTPRequest& req) -> pw::HTTPResponse {
         json json_req;
         try {
             json_req = json::parse(req.body);
@@ -130,7 +135,7 @@ int main(int argc, char** argv) {
         return pw::HTTPResponse("200", json_resp.dump(), {{"Content-Type", "application/json"}});
     });
 
-    server.route("/v1/login", [&db](pw::Connection& conn, const pw::HTTPRequest& req) {
+    server.route("/v1/login", [&db](pw::Connection& conn, const pw::HTTPRequest& req) -> pw::HTTPResponse {
         json json_req;
         try {
             json_req = json::parse(req.body);
@@ -156,10 +161,10 @@ int main(int argc, char** argv) {
 
         session s;
 
-        std::unique_ptr<User> user;
+        std::shared_ptr<User> user;
         try {
             transaction t(db->begin());
-            user = std::unique_ptr<User>(db->load<User>(json_req["username"]));
+            user = db->load<User>(json_req["username"]);
             t.commit();
         } catch (const std::exception& e) {
             return generate_error_resp("400", e.what());
@@ -180,7 +185,7 @@ int main(int argc, char** argv) {
         return pw::HTTPResponse("200", json_resp.dump(), {{"Content-Type", "application/json"}});
     });
 
-    server.route("/v1/create_deck", [&db](pw::Connection& conn, const pw::HTTPRequest& req) {
+    server.route("/v1/create_deck", [&db](pw::Connection& conn, const pw::HTTPRequest& req) -> pw::HTTPResponse {
         json json_req;
         try {
             json_req = json::parse(req.body);
@@ -211,14 +216,14 @@ int main(int argc, char** argv) {
         }
 
         std::string username;
-        VERIFY(json_req["token"]);
+        VERIFY(json_req["token"], username);
 
         session s;
 
         std::shared_ptr<User> user;
         try {
             transaction t(db->begin());
-            user = std::shared_ptr<User>(db->load<User>(username));
+            user = db->load<User>(username);
             t.commit();
         } catch (const std::exception& e) {
             return generate_error_resp("400", e.what());
@@ -233,26 +238,92 @@ int main(int argc, char** argv) {
                 return generate_error_resp("400", "Term definition is not a string");
             }
 
-            std::shared_ptr<Term> new_term(new Term(term.key(), term.value()));
-            transaction t(db->begin());
-            db->persist(*new_term);
-            t.commit();
-            new_deck->terms.push_back(std::move(new_term));
+            try {
+                std::shared_ptr<Term> new_term(new Term(term.key(), term.value()));
+                transaction t(db->begin());
+                db->persist(new_term);
+                t.commit();
+                new_deck->terms.push_back(std::move(new_term));
+            } catch (const std::exception& e) {
+                generate_error_resp("500", e.what());
+            }
         }
 
         unsigned long long new_deck_id;
         try {
             transaction t(db->begin());
-            new_deck_id = db->persist(*new_deck);
+            new_deck_id = db->persist(new_deck);
             user->decks.push_back(new_deck);
-            db->update(*user);
+            db->update(user);
             t.commit();
         } catch (const std::exception& e) {
-            generate_error_resp("400", e.what());
+            generate_error_resp("500", e.what());
         }
 
         json json_resp;
         json_resp["id"] = new_deck_id;
+
+        return pw::HTTPResponse("200", json_resp.dump(), {{"Content-Type", "application/json"}});
+    });
+
+    server.route("/v1/deck_info/*", [&db](pw::Connection& conn, const pw::HTTPRequest& req) -> pw::HTTPResponse {
+        std::vector<std::string> split_target;
+        boost::split(split_target, req.target, boost::is_any_of("/"));
+
+        if (!is_number(split_target.back())) {
+            return generate_error_resp("400", "Deck ID is not a number");
+        }
+        unsigned long long deck_id = std::stoull(split_target.back());
+
+        session s;
+
+        std::shared_ptr<Deck> deck;
+        try {
+            transaction t(db->begin());
+            deck = db->load<Deck>(deck_id);
+            deck->owner.load();
+            t.commit();
+        } catch (const std::exception& e) {
+            return generate_error_resp("400", e.what());
+        }
+
+        json json_resp;
+        json_resp["name"] = deck->name;
+        json_resp["owner"] = deck->owner.load()->username;
+        json_resp["creation_date"] = deck->creation_date;
+        json_resp["terms"] = json::object();
+        for (const auto& term : deck->terms) {
+            json_resp["terms"][term->term] = term->definition;
+        }
+
+        return pw::HTTPResponse("200", json_resp.dump(), {{"Content-Type", "application/json"}});
+    });
+
+    server.route("/v1/user_info/*", [&db](pw::Connection& conn, const pw::HTTPRequest& req) -> pw::HTTPResponse {
+        std::vector<std::string> split_target;
+        boost::split(split_target, req.target, boost::is_any_of("/"));
+        std::string username = std::move(split_target.back());
+
+        session s;
+
+        std::shared_ptr<User> user;
+        try {
+            transaction t(db->begin());
+            user = db->load<User>(username);
+            t.commit();
+        } catch (const std::exception& e) {
+            return generate_error_resp("400", e.what());
+        }
+
+        json json_resp;
+        json_resp["username"] = user->username;
+        json_resp["creation_date"] = user->creation_date;
+        json_resp["decks"] = json::array();
+        for (const auto& deck : user->decks) {
+            transaction t(db->begin());
+            json_resp["decks"].push_back(deck.load()->id);
+            t.commit();
+        }
 
         return pw::HTTPResponse("200", json_resp.dump(), {{"Content-Type", "application/json"}});
     });
