@@ -3,3 +3,4 @@
 */.cache/
 *-odb.*
 api/server
+api/persistence.sql
