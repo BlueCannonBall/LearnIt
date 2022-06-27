@@ -245,7 +245,7 @@ int main(int argc, char** argv) {
                 t.commit();
                 new_deck->terms.push_back(std::move(new_term));
             } catch (const std::exception& e) {
-                generate_error_resp("500", e.what());
+                return generate_error_resp("500", e.what());
             }
         }
 
@@ -257,7 +257,7 @@ int main(int argc, char** argv) {
             db->update(user);
             t.commit();
         } catch (const std::exception& e) {
-            generate_error_resp("500", e.what());
+            return generate_error_resp("500", e.what());
         }
 
         json json_resp;
